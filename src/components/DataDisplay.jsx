@@ -1,7 +1,6 @@
 import React from 'react';
 
-const DataDisplay = ({ data }) => {
-  console.log(data)
+const DataDisplay = ({ fields, data }) => {
   if (!data || Object.keys(data).length === 0) {
     return (
       <div className="data-display empty">
@@ -9,29 +8,19 @@ const DataDisplay = ({ data }) => {
       </div>
     );
   }
-
-  const renderData = (dataObj) => {
-    return (
-      <ul className="data-list">
-        {Object.entries(dataObj).map(([key, value]) => (
-          <li key={key} className="data-item">
-            <span className="data-key">{key}:</span>
-            <span className="data-value">
-              {typeof value === 'object' && value !== null
-                ? renderData(value)
-                : String(value)}
-            </span>
-          </li>
-        ))}
-      </ul>
-    );
-  };
-
   return (
     <div className="data-display">
-      <div className="data-content">
-        {renderData(data)}
-      </div>
+      <ul className="data-list">
+        {fields.map((field) => {
+          const value = data[field.id] || 'N/A';
+          return (
+            <li key={field.name} className="data-item">
+              <span className="data-key">{field.label || field.name}:</span>
+              <span className="data-value">{typeof value === 'object' ? JSON.stringify(value) : value}</span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

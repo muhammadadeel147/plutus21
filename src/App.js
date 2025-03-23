@@ -37,7 +37,7 @@ function App() {
         </div>
         <div className="data-section">
           <h2>Data Display</h2>
-          <DataDisplay data={formData} />
+          <DataDisplay fields={formFields} data={formData} />
         </div>
       </div>
     </div>
